@@ -1,0 +1,25 @@
+{
+  "name": "openai-assistants-discord-bot",
+  "version": "1.0.0",
+  "description": "In this repo we integrate Discord.js with the new OpenAI Assistants API. The bot operates within Discord channels, listening to messages and using OpenAI to generate responses.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:T-Sahin-8181/openai-assistants-discord-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": "git@github.com:T-Sahin-8181/openai-assistants-discord-bot.git"
+  },
+  "homepage": "",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.4",
+    "openai": "^4.28.0"
+  }
+}
