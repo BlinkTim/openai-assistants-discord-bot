@@ -1,5 +1,8 @@
+const fs = require('fs');
+const path = require('path'); 
 const { Client, GatewayIntentBits } = require('discord.js');
 const { OpenAI } = require("openai");
+const { type } = require('os');
 require("dotenv").config();
 
 const openai = new OpenAI({
@@ -11,7 +14,7 @@ const client = new Client({
   intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent
+        GatewayIntentBits.MessageContent,
     ]
 });
 
@@ -52,21 +55,32 @@ const statusCheckLoop = async (openAiThreadId, runId) => {
     return run.status;
 }
 
+async function main() {
+    const file = await openai.files.create({
+      file: fs.createReadStream("mydata.jsonl"),
+      purpose: "assistants",
+    });
+  
+    console.log(file);
+  }
+main()  
+
+
 const addMessage = (threadId, content) => {
     // console.log(content);
     return openai.beta.threads.messages.create(
         threadId,
-        { role: "user", content }
+       { role: "user", content },
+        
     )
 }
 
 // This event will run every time a message is received
 client.on('messageCreate', async message => {
     if (message.author.bot || !message.content || message.content === '') return; //Ignore bot messages
-    // console.log(message);
     const discordThreadId = message.channel.id;
     let openAiThreadId = getOpenAiThreadId(discordThreadId);
-
+    
     let messagesLoaded = false;
     if(!openAiThreadId){
         const thread = await openai.beta.threads.create();
@@ -76,7 +90,7 @@ client.on('messageCreate', async message => {
             //Gather all thread messages to fill out the OpenAI thread since we haven't seen this one yet
             const starterMsg = await message.channel.fetchStarterMessage();
             const otherMessagesRaw = await message.channel.messages.fetch();
-
+            
             const otherMessages = Array.from(otherMessagesRaw.values())
                 .map(msg => msg.content)
                 .reverse(); //oldest first
@@ -104,7 +118,7 @@ client.on('messageCreate', async message => {
     const messages = await openai.beta.threads.messages.list(openAiThreadId);
     let response = messages.data[0].content[0].text.value;
     response = response.substring(0, 1999) //Discord msg length limit when I was testing
-
+    
     console.log(response);
     
     message.reply(response);
