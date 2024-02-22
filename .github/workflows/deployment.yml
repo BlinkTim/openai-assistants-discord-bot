@@ -18,12 +18,12 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: <eu-west-1> # z.B. us-east-1
+          aws-region: eu-west-1 # z.B. us-east-1
 
       - name: Start EC2 Instance
         run: |
           aws ec2 run-instances \
-            --image-id <ami-0a23a9827c6dab833> \
-            --instance-type <t2.micro> \
-            --subnet-id <subnet-02d83099e8a7b60c0> \
-            --key-name <chatbot> \
+            --image-id ami-0a23a9827c6dab833 \
+            --instance-type t2.micro \
+            --subnet-id subnet-02d83099e8a7b60c0 \
+            --key-name chatbot \
