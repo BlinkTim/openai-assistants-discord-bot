@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Checkup environment Variables
-        run: echo "AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}"
+        run: echo "AWS_ACCESS_KEY_ID: ${{secrets.aws_access_key_id}}"
 
 
 
