@@ -23,3 +23,9 @@ jobs:
 
     - name: Deploy CloudFormation Stack
       run: aws cloudformation deploy --template-file cloudformatio.yaml --stack-name chatbottest --region eu-central-1 --parameter-overrides KeyName=chatbot
+    - name: Setze OpenAI API Key
+      run: |
+        echo "Mein OpenAI API Schlüssel ist $OPENAI_API_KEY"
+        # Führen Sie hier Ihre Aktionen aus, die den API-Schlüssel verwenden
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
