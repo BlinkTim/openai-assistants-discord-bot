@@ -16,7 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-        
+      - name: Checkup environment Variables
+        run: echo "AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}"
+
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
