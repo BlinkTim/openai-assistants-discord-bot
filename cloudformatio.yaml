@@ -9,9 +9,10 @@ Parameters:
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: Name of an existing EC2 KeyPair for SSH access
+
 Resources:
   EC2Role:
-      Type: AWS::IAM::Role
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
@@ -35,6 +36,7 @@ Resources:
       CidrBlock: '10.0.0.0/16'
       EnableDnsSupport: true
       EnableDnsHostnames: true
+
   PublicSubnet:
     Type: AWS::EC2::Subnet
     Properties:
@@ -42,27 +44,32 @@ Resources:
       CidrBlock: '10.0.1.0/24'
       MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [0, !GetAZs eu-central-1]
+
   PrivateSubnet:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
       CidrBlock: '10.0.2.0/24'
       AvailabilityZone: !Select [0, !GetAZs eu-central-1]
+
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
           Value: MyInternetGateway
+
   AttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId: !Ref VPC
       InternetGatewayId: !Ref InternetGateway
+
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
+
   PublicRoute:
     Type: AWS::EC2::Route
     DependsOn: AttachGateway
@@ -70,11 +77,13 @@ Resources:
       RouteTableId: !Ref PublicRouteTable
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId: !Ref InternetGateway
+
   PublicSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PublicSubnet
       RouteTableId: !Ref PublicRouteTable
+
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -85,11 +94,13 @@ Resources:
           FromPort: '22'
           ToPort: '22'
           CidrIp: 0.0.0.0/0
+
   EC2InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Roles:
         - !Ref EC2Role
+
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
@@ -120,6 +131,7 @@ Resources:
           sudo npm install
           sudo npm install pm2 -g
           pm2 start bot.js
+
   MyS3Bucket:
     Type: AWS::S3::Bucket
     Properties:
