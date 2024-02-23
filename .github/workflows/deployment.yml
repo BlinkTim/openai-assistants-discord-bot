@@ -28,6 +28,12 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: eu-central-1
 
+    - name: Create a aws secret
+      run: aws secretsmanager create-secret \
+            --name OPENAI_API_KEY \
+            --description "Mein OPENAI_API_KEY" \
+            --secret-string ${{ secrets.OPENAI_API_KEY }}
+    
     - name: Deploy CloudFormation Stack
       run: aws cloudformation deploy --template-file cloudformatio.yaml --stack-name chatbottest --region eu-central-1 --parameter-overrides KeyName=chatbot
   
