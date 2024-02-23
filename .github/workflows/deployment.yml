@@ -16,17 +16,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Checkup environment Variables
-        run: echo ${{secrets.aws_access_key_id}}
 
 
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.aws_access_key_id }}
-          aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
-          aws-session-token: ${{ secrets.aws_session_token }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: eu-central-1
 
       - name: Start EC2 Instance
@@ -36,3 +34,4 @@ jobs:
             --instance-type t2.micro \
             --subnet-id subnet-02d83099e8a7b60c0 \
             --key-name chatbot \
+            --security-group-ids sg-05c04f9c099389b81  
