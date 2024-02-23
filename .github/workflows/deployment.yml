@@ -22,4 +22,4 @@ jobs:
         aws-region: eu-central-1
 
     - name: Deploy CloudFormation Stack
-      run: aws cloudformation deploy --template-file cloudformatio.yaml --stack-name chatbottest --region eu-central-1
+      run: aws cloudformation deploy --template-file cloudformatio.yaml --stack-name chatbottest --region eu-central-1 --parameter-overrides KeyName=chatbot
