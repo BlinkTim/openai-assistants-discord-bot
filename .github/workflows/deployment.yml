@@ -30,7 +30,7 @@ jobs:
 
     - name: Create a aws secret
       run: aws secretsmanager create-secret \
-            --name OPENAI_API_KEY \
+            --name "OPENAI_API_KEY" \
             --description "Mein OPENAI_API_KEY" \
             --secret-string ${{ secrets.OPENAI_API_KEY }}
     
