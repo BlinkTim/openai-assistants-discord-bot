@@ -17,7 +17,7 @@ jobs:
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
-        echo "Mein OpenAI API Schlüssel ist ${{OPENAI_API_KEY}}"
+        echo "Mein OpenAI API Schlüssel ist ${{ secrets.OPENAI_API_KEY }}"
         # Führen Sie hier Ihre Aktionen aus, die den API-Schlüssel verwenden
 
     - name: Configure AWS credentials
