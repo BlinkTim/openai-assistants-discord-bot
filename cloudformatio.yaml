@@ -11,7 +11,7 @@ Parameters:
     Description: Name of an existing EC2 KeyPair for SSH access
   DISCORDTOKEN:  # Neuer Parameter für den OpenAI API Schlüssel
     Type: String
-    Description: API key for OpenAI
+    Description:  Discord token for the bot
 Resources:
   EC2Role:
     Type: AWS::IAM::Role
