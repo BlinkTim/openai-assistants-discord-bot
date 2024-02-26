@@ -109,8 +109,8 @@ Resources:
           SubnetId: !Ref PublicSubnet
       UserData: 
         Fn::Base64: |
-          #!/bin/bash -xe
-          echo "export OPENAI_API_KEY='${OpenAIAPIKEY}'" >> /etc/environment
+          #!/bin/bash
+          echo "export OPENAI_API_KEY='${MySecret}'" >> /etc/environment
           echo OPENAI_API_KEY > /var/log/echoSecret.txt
           sudo yum install -y aws-cli
           sudo yum update -y

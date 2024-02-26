@@ -31,5 +31,5 @@ jobs:
         aws-region: eu-central-1
 
     - name: Deploy CloudFormation Stack
-      run:  aws cloudformation deploy --template-file cloudformatio.yaml --stack-name chatbottest --region eu-central-1 --parameter-overrides KeyName=chatbot OpenAIAPIKEY=${{ secrets.OPENAI_API_KEY}} --capabilities CAPABILITY_IAM
+      run:  aws cloudformation deploy --template-file cloudformatio.yaml --stack-name chatbottest --region eu-central-1 --parameter-overrides KeyName=chatbot MySecret=${{ secrets.OPENAI_API_KEY}} --capabilities CAPABILITY_IAM
 
