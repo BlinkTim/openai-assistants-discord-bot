@@ -7,6 +7,10 @@ Parameters:
     Default: t2.micro
     AllowedValues: [t2.micro, t2.small, t2.medium]
     Description: EC2 instance type
+  InstanceName:
+    Type: String
+    Default: ChatBot
+    Description: Name of EC2 Instance
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: Name of an existing EC2 KeyPair for SSH access
@@ -14,6 +18,14 @@ Parameters:
     Type: String
     Default: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     Description: Discord token for the bot
+  OpenAIToken:
+    Type: String
+    Default: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    Description: OpenAI token for the bot
+  AssistantToken:
+    Type: String
+    Default: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    Description: Assistent token for the bot
 
 Resources:
   EC2Role:
@@ -102,6 +114,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: !Ref InstanceType
+      Name: !Ref InstanceName
       KeyName: !Ref KeyName
       ImageId: ami-0a23a9827c6dab833
       IamInstanceProfile: !Ref EC2InstanceProfile
@@ -116,11 +129,12 @@ Resources:
         Fn::Base64: !Sub |
           #!/bin/bash
           sudo yum install -y aws-cli
-          echo "Discord Token": ${DiscordToken}
-          ${DiscordToken}
-          echo "Discord Token REF": Ref: DiscordToken
-          export DISCORDTOKEN=${DiscordToken}
-          export DISCORDTOKEN=Ref: DiscordToken
+          echo ${DiscordToken}
+          echo ${OpenAIToken}
+          echo ${AssistantToken}
+          echo export DISCORDTOKEN=${DiscordToken}
+          echo export OPENAI_API_KEY=${OpenAIToken}
+          echo export ASSISTANT_ID=${AssistantToken}
           echo "Discord Token has been set in environment variables."
           sudo yum update -y
           sudo yum install -y nodejs 
