@@ -9,7 +9,7 @@ Parameters:
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: Name of an existing EC2 KeyPair for SSH access
-  OPENAIAPIKEY:  # Neuer Parameter für den OpenAI API Schlüssel
+  DISCORDTOKEN:  # Neuer Parameter für den OpenAI API Schlüssel
     Type: String
     Description: API key for OpenAI
 Resources:
@@ -101,8 +101,8 @@ Resources:
       UserData: 
         Fn::Base64: |
           #!/bin/bash
-          echo "export OPENAIAPIKEY='${OPENAIAPIKEY}'" >> /etc/environment
-          echo OPENAIAPIKEY > /var/log/echoSecret.txt
+          echo "export DISCORDTOKEN='${DISCORDTOKEN}'" >> /etc/environment
+          echo DISCORDTOKEN > /var/log/echoSecret.txt
           sudo yum install -y aws-cli
           sudo yum update -y
           sudo yum install -y nodejs 
