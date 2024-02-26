@@ -33,9 +33,9 @@ Resources:
           PolicyDocument:
           Version: '2012-10-17'
           Statement:
-        -   Effect: Allow
-            Action: secretsmanager:GetSecretValue
-            Resource: 'arn:aws:secretsmanager:eu-central-1:259421538778:secret:DISCORD_TOKEN-hwg4Rn'
+            - Effect: Allow
+              Action: secretsmanager:GetSecretValue
+              Resource: 'arn:aws:secretsmanager:eu-central-1:259421538778:secret:DISCORD_TOKEN-hwg4Rn'
 
   VPC:
     Type: AWS::EC2::VPC
