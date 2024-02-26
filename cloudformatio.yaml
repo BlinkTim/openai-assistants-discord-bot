@@ -115,7 +115,7 @@ Resources:
         Fn::Base64: |
           #!/bin/bash
           echo "Downloading Discord Token from AWS Secrets Manager..."
-          discord_token=$(aws secretsmanager get-secret-value --secret-id DISCORD_TOKEN --region YOUR_REGION --query SecretString --output text)
+          discord_token=$(aws secretsmanager get-secret-value --secret-id DISCORD_TOKEN --region eu-central-1 --query SecretString --output text)
           echo "Discord Token: $discord_token"
           echo "export DISCORDTOKEN='$discord_token'" >> /etc/environment
           echo "Discord Token has been set in environment variables."
