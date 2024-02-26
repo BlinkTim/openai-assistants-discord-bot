@@ -14,27 +14,19 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Setze Discord Token
-      env:
-        DISCORDTOKEN: ${{ secrets.DISCORD_TOKEN }}
-      run: |
-        echo "Mein Discord Token ist $DISCORDTOKEN"
-        # Führen Sie hier Ihre Aktionen aus, die den Discord Token verwendet
-
-    
+      run: aws secretsmanager get-secret-value --secret-id DISCORD_TOKEN --region eu_central_1 --query SecretString --output text >> discord_token.txt
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: eu-central-1
+        aws-region: YOUR_REGION
 
     - name: Deploy to AWS CloudFormation
       uses: aws-actions/aws-cloudformation-github-deploy@v1
       with:
         name: chatbottest
-        template: cloudformatio.yaml
-        parameter-overrides: "KeyName=chatbot,DISCORDTOKEN=${{ secrets.DISCORD_TOKEN }}"
+        template: cloudformation.yaml
+        parameter-overrides: "KeyName=chatbot,DISCORDTOKEN=$(cat discord_token.txt)"
         capabilities: CAPABILITY_IAM
-
