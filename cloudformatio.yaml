@@ -10,6 +10,9 @@ Parameters:
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: Name of an existing EC2 KeyPair for SSH access
+  DISCORDTOKEN:
+    Type: String
+    Description: Discord token for the bot
 
 Resources:
   EC2Role:
