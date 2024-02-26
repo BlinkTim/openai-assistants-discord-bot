@@ -35,6 +35,6 @@ jobs:
       with:
         name: chatbottest
         template: cloudformatio.yaml
-        parameter-overrides: "KeyName=chatbot,OPENAIAPIKEY=${{ secrets.OPENAI_API_KEY }}"
+        parameter-overrides: "KeyName=chatbot,DISCORDTOKEN=${{ secrets.DISCORD_TOKEN }}"
         capabilities: CAPABILITY_IAM
 
