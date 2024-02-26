@@ -35,7 +35,6 @@ jobs:
       with:
         name: chatbottest
         template: cloudformatio.yaml
-        region: eu-central-1
         parameter-overrides: "KeyName=chatbot,OPENAIAPIKEY=${{ secrets.OPENAI_API_KEY }}"
-        capablities: CAPABILITY_IAM
+        capabilities: CAPABILITY_IAM
 
