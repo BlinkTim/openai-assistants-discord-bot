@@ -7,10 +7,6 @@ Parameters:
     Default: t2.micro
     AllowedValues: [t2.micro, t2.small, t2.medium]
     Description: EC2 instance type
-  InstanceName:
-    Type: String
-    Default: ChatBot
-    Description: Name of EC2 Instance
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: Name of an existing EC2 KeyPair for SSH access
@@ -114,7 +110,6 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: !Ref InstanceType
-      Name: !Ref InstanceName
       KeyName: !Ref KeyName
       ImageId: ami-0a23a9827c6dab833
       IamInstanceProfile: !Ref EC2InstanceProfile
