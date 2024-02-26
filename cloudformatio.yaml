@@ -124,11 +124,9 @@ Resources:
           sudo yum install -y git
           sudo yum install -y jq
           sudo git clone https://github.com/BlinkTim/openai-assistants-discord-bot.git
-          OPENAI_API_KEY=$(aws secretsmanager get-secret-value --region eu-central-1 --secret-id OPENAI_API_KEY --query SecretString --output text | jq -r .OPENAI_API_KEY)
-          echo $OPEN_API_KEY > /var/log/echoSecret.txt
-          DISCORD_TOKEN=$(aws secretsmanager get-secret-value --region eu-central-1 --secret-id DISCORD_TOKEN --query SecretString --output text | jq -r .DISCORD_TOKEN)
-          export OPENAI_API_KEY=$OPEN_API_KEY
-          export DISCORD_TOKEN=$DISCORD_TOKEN
+          SECRET=$(aws secretsmanager get-secret-value --region eu-central-1 --secret-id OPENAI_API_KEY --query SecretString --output text | jq -r .OPENAI_API_KEY)
+          echo $SECRET > /var/log/echoSecret.txt
+          export OPENAI_API_KEY=$SECRET
           cd openai-assistants-discord-bot
           sudo npm install
           sudo npm install pm2 -g
