@@ -29,6 +29,13 @@ Resources:
               - Effect: Allow
                 Action: secretsmanager:GetSecretValue
                 Resource: 'arn:aws:secretsmanager:eu-central-1:259421538778:secret:OPENAI_API_KEY-g68id4'
+        - PolicyName: AccessSecondSecretPolicy
+          PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+        -   Effect: Allow
+            Action: secretsmanager:GetSecretValue
+            Resource: 'arn:aws:secretsmanager:eu-central-1:259421538778:secret:DISCORD_TOKEN-hwg4Rn'
 
   VPC:
     Type: AWS::EC2::VPC
@@ -125,8 +132,11 @@ Resources:
           sudo yum install -y jq
           sudo git clone https://github.com/BlinkTim/openai-assistants-discord-bot.git
           SECRET=$(aws secretsmanager get-secret-value --region eu-central-1 --secret-id OPENAI_API_KEY --query SecretString --output text | jq -r .OPENAI_API_KEY)
+          SECOND_SECRET=$(aws secretsmanager get-secret-value --region eu-central-1 --secret-id DISCORD_TOKEN --query SecretString --output text | jq -r .DISCORD_TOKEN)
           echo $SECRET > /var/log/echoSecret.txt
+          echo $SECOND_SECRET > /var/log/echoSecondSecret.txt
           export OPENAI_API_KEY=$SECRET
+          export DISCORD_TOKEN=$SESCOND_SECRET
           cd openai-assistants-discord-bot
           sudo npm install
           sudo npm install pm2 -g
