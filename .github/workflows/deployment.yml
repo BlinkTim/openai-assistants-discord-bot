@@ -30,6 +30,12 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: eu-central-1
 
-    - name: Deploy CloudFormation Stack
-      run:  aws cloudformation deploy --template-file cloudformatio.yaml --stack-name chatbottest --region eu-central-1 --parameter-overrides KeyName=chatbot MySecret=${{ secrets.OPENAI_API_KEY}} --capabilities CAPABILITY_IAM
+    - name: Deploy to AWS CloudFormation
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: chatbottest
+        template: cloudformatio.yaml
+        region: eu-central-1
+        parameter-overrides: "KeyName=chatbot,OPENAIAPIKEY=${{ secrets.OPENAI_API_KEY }}"
+        capablities: CAPABILITY_IAM
 
