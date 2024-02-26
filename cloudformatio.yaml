@@ -9,7 +9,9 @@ Parameters:
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: Name of an existing EC2 KeyPair for SSH access
-
+  OpenAI_API_KEY:
+    Type: String
+    Description: OpenAI API Key
 Resources:
   EC2Role:
     Type: AWS::IAM::Role
