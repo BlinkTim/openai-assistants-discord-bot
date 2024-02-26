@@ -127,7 +127,7 @@ Resources:
           echo ${DiscordToken}
           echo ${OpenAIToken}
           echo ${AssistantToken}
-          echo export DISCORDTOKEN=${DiscordToken}
+          echo export DISCORDTOKEN=${DiscordToken} >> /etc/environment
           echo export OPENAI_API_KEY=${OpenAIToken}
           echo export ASSISTANT_ID=${AssistantToken}
           echo "Discord Token has been set in environment variables."
