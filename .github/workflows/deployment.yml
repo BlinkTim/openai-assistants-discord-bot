@@ -20,6 +20,8 @@ jobs:
         echo "Mein OpenAI API Schlüssel ist ${{ secrets.OPENAI_API_KEY }}"
         # Führen Sie hier Ihre Aktionen aus, die den API-Schlüssel verwenden
 
+    
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
