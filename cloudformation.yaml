@@ -136,6 +136,7 @@ Resources:
           sudo yum install -y git
           sudo yum install -y jq
           sudo git clone https://github.com/BlinkTim/openai-assistants-discord-bot.git
+          cd ../..
           cd openai-assistants-discord-bot
           sudo npm install
           sudo npm install pm2 -g
