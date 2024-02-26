@@ -128,8 +128,8 @@ Resources:
           echo ${OpenAIToken}
           echo ${AssistantToken}
           echo export DISCORDTOKEN=${DiscordToken} >> /etc/environment
-          echo export OPENAI_API_KEY=${OpenAIToken}
-          echo export ASSISTANT_ID=${AssistantToken}
+          echo export OPENAI_API_KEY=${OpenAIToken} >> /etc/environment
+          echo export ASSISTANT_ID=${AssistantToken} >> /etc/environment
           echo "Discord Token has been set in environment variables."
           sudo yum update -y
           sudo yum install -y nodejs 
