@@ -150,5 +150,5 @@ Resources:
           cd /home/ec2-user/openai-assistants-discord-bot
           sudo npm install
           sudo npm install pm2 -g
-          pm2 start bot.js
+          pm2 start npm --name Discordbot -- run start --cwd /home/ec2-user/openai-assistants-discord-bot 
           '
