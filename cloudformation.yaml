@@ -151,7 +151,6 @@ Resources:
           sudo yum install -y jq
           export HOME=/root/
           sudo npm install pm2 -g
-          sudo npm install
           echo ${DiscordToken}
           echo ${OpenAIToken}
           echo ${AssistantToken}
@@ -161,6 +160,7 @@ Resources:
           echo "Discord Token has been set in environment variables."
           sudo git clone https://github.com/BlinkTim/openai-assistants-discord-bot.git 
           cd openai-assistants-discord-bot
+          sudo npm install
           sudo chmod +rx bot.js
           sudo chmod +rx mydata.jsonl
           pm2 startup systemd
