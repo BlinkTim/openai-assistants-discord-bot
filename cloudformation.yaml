@@ -151,8 +151,10 @@ Resources:
           sudo chmod +rx bot.js
           sudo chmod +rx mydata.jsonl
           sudo npm install pm2 -g
-          pm2 startup
+          pm2 startup systemd
           pm2 start bot.js
           pm2 save
+          pm2 startup systemd
+
 
 
