@@ -106,6 +106,15 @@ Resources:
       Roles:
         - !Ref EC2Role
 
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: timsmysterylounges3
+      AccessControl: Private
+      Tags:
+        - Key: Name
+          Value: MyS3Bucket
+
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
@@ -123,6 +132,7 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
+          sudo useradd -m -s /bin/bash ec2-user
           sudo yum install -y aws-cli
           echo ${DiscordToken}
           echo ${OpenAIToken}
@@ -130,23 +140,12 @@ Resources:
           echo export DISCORDTOKEN=${DiscordToken} >> /etc/environment
           echo export OPENAI_API_KEY=${OpenAIToken} >> /etc/environment
           echo export ASSISTANT_ID=${AssistantToken} >> /etc/environment
-          echo "Discord Token has been set in environment variables."
           sudo yum update -y
           sudo yum install -y nodejs 
           sudo yum install -y git
           sudo yum install -y jq
-          sudo git clone https://github.com/BlinkTim/openai-assistants-discord-bot.git
-          cd ../..
-          cd openai-assistants-discord-bot
+          sudo git clone https://github.com/BlinkTim/openai-assistants-discord-bot.git /home/ec2-user/openai-assistants-discord-bot
+          cd /home/ec2-user/openai-assistants-discord-bot
           sudo npm install
           sudo npm install pm2 -g
           pm2 start bot.js
-
-  MyS3Bucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: timsmysterylounges3
-      AccessControl: Private
-      Tags:
-        - Key: Name
-          Value: MyS3Bucket
