@@ -92,12 +92,23 @@ Resources:
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Enable SSH access
+      GroupDescription: Enable SSH and Bot Access
       VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: "22"
           ToPort: "22"
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: "80"
+          ToPort: "80"
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: "443"
+          ToPort: "443"
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
           CidrIp: 0.0.0.0/0
 
   EC2InstanceProfile:
@@ -149,6 +160,6 @@ Resources:
           cd /openai-assistants-discord-bot
           sudo npm install
           sudo chmod 777 bot.js
+          sudo chmod 777 mydata.jsonl
           sudo npm install pm2 -g
-          pm2 start bot.js --name bot -- run start --cwd /openai-assistants-discord-bot/
-
+          pm2 start bot.js
