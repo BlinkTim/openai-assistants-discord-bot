@@ -148,6 +148,7 @@ Resources:
           sudo git clone https://github.com/BlinkTim/openai-assistants-discord-bot.git 
           cd /openai-assistants-discord-bot
           sudo npm install
+          sudo chmod 777 bot.js
           sudo npm install pm2 -g
           pm2 start bot.js --name bot -- run start --cwd /openai-assistants-discord-bot/
 
