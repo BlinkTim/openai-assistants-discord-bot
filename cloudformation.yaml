@@ -160,4 +160,5 @@ Resources:
           echo "Discord Token has been set in environment variables."
           sudo git clone https://github.com/BlinkTim/openai-assistants-discord-bot.git 
           cd /openai-assistants-discord-bot
-          node start bot.js
+          pm2 start bot.js
+          pm2 startup
