@@ -154,12 +154,9 @@ Resources:
           echo ${DiscordToken}
           echo ${OpenAIToken}
           echo ${AssistantToken}
-          echo export DISCORDTOKEN=${DiscordToken} >> /etc/environment
-          export $DISCORDTOKEN
-          echo export OPENAI_API_KEY=${OpenAIToken} >> /etc/environment
-          export $OPENAI_API_KEY
-          echo export ASSISTANT_ID=${AssistantToken} >> /etc/environment
-          export $ASSISTANT_ID
+          export DISCORDTOKEN=${DiscordToken}
+          export OPENAI_API_KEY=${OpenAIToken}
+          export ASSISTANT_ID=${AssistantToken}
           echo "Discord Token has been set in environment variables."
           sudo git clone https://github.com/BlinkTim/openai-assistants-discord-bot.git 
           cd openai-assistants-discord-bot
