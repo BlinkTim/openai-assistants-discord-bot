@@ -1,0 +1,3 @@
+[submodule "html-chatbot"]
+	path = html-chatbot
+	url = https://github.com/FelixIxkes/Html-Chatbot.git
