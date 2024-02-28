@@ -1,5 +1,5 @@
 # NodeJS Discord Bot Using the new OpenAI Assistants API
-
+1
 In this repo we integrate Discord.js with the new OpenAI Assistants API. The bot operates within Discord channels, listening to messages and using OpenAI to generate responses.
 
 ## Features
