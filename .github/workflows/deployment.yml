@@ -1,0 +1,33 @@
+name: Deploy CloudFormation Stack
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: eu-central-1
+
+      - name: Setze Discord Token
+        run: aws secretsmanager get-secret-value --secret-id DISCORD_TOKEN --region eu-central-1 --query SecretString --output text >> discord_token.txt
+
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: chatbottest
+          template: cloudformation.yaml
+          parameter-overrides: "KeyName=chatbot,DiscordToken=${{ secrets.DISCORD_TOKEN }},OpenAIToken=${{ secrets.OPENAI_API_KEY }},AssistantToken=${{ secrets.ASSISTANT_ID }}"
+          capabilities: CAPABILITY_IAM

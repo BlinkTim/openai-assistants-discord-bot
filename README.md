@@ -34,7 +34,7 @@ In this repo we integrate Discord.js with the new OpenAI Assistants API. The bot
 
 1. **Set Up Environment Variables**:
    Create a `.env` file in the root of your project with the following variables:
-   mv .env.sample .env 
+   mv .env.sample .env
    ```
    DISCORD_TOKEN=your_discord_bot_token
    OPENAI_API_KEY=your_openai_api_key
@@ -51,5 +51,3 @@ In this repo we integrate Discord.js with the new OpenAI Assistants API. The bot
    ```
    nodemon bot.js
    ```
-
-
