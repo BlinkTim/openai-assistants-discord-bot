@@ -125,4 +125,4 @@ client.on('messageCreate', async message => {
 });
 
 // Authenticate Discord
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORDTOKEN);

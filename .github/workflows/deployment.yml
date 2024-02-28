@@ -1,4 +1,4 @@
-name: Start EC2 Instance
+name: Deploy CloudFormation Stack
 
 on:
   push:
@@ -6,32 +6,28 @@ on:
       - main
 
 jobs:
-  start_ec2_instance:
+  deploy:
     runs-on: ubuntu-latest
 
-    permissions:
-      id-token: write
-      contents: read
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
-
-
-
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: eu-central-1
 
-      - name: Start EC2 Instance
-        run: |
-          aws ec2 run-instances \
-            --image-id ami-0a23a9827c6dab833 \
-            --instance-type t2.micro \
-            --subnet-id subnet-02d83099e8a7b60c0 \
-            --key-name chatbot \
-            --security-group-ids sg-05c04f9c099389b81  
+      - name: Setze Discord Token
+        run: aws secretsmanager get-secret-value --secret-id DISCORD_TOKEN --region eu-central-1 --query SecretString --output text >> discord_token.txt
+
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: chatbottest
+          template: cloudformation.yaml
+          parameter-overrides: "KeyName=chatbot,DiscordToken=${{ secrets.DISCORD_TOKEN }},OpenAIToken=${{ secrets.OPENAI_API_KEY }},AssistantToken=${{ secrets.ASSISTANT_ID }}"
+          capabilities: CAPABILITY_IAM
