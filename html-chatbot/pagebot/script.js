@@ -49,3 +49,4 @@ function sendMessage() {
         userInput.value = "";
     }
 }
+

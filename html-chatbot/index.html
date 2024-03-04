@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
 	<!-- Google signIN -->
-	<meta name="google-signin-client_id" content="DEINE_CLIENT_ID.apps.googleusercontent.com">
+	<meta name="google-signin-client_id" content="64931160981-fdfqut5uhe0apetipoe0l9li6pii44dd.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
@@ -351,12 +351,32 @@
 		<hr>
 	  <div class="row Loginlist">
 			<!-- First Vote Link -->
-	    <div class="col-md Loginblock">
-				<img class="res-img-sm" src="./img/Google.PNG">
-				<h2><a href="http://localhost:3000/auth/google/callback" target="_blank">CLICK TO LOGIN</a></h2>
+			<div class="g-signin2"  data-onsuccess="onSignIn"></div>
+			<style>
+				.login-container {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					height: 100vh;
+				}
 			
+				.g-signin2 {
+					transform: scale(1.5); /* Vergrößert den Button */
+					margin: auto;
+				}
+			
+				/* Alternative Methode: Anpassen der Breite/Höhe */
+				/* .g-signin2 > div {
+					width: 240px !important;
+					height: 50px !important;
+				} */
+			</style>
+		  <!-- 	<div class="col-md Loginblock">
+				<img class="res-img-sm" src="./img/Google.PNG">
+				<h2><a href="http://localhost:3000/auth/google/callback" target="signinButton">CLICK here</a></h2>
 				<a href="#">&nbsp;</a>
-		  </div>
+
+		  </div> -->
 		  <!-- End First Vote Link -->
 
 		  <!-- Second Vote Link -->
@@ -447,36 +467,36 @@
 			document.documentElement.scrollTop = 0;
 		}
 	</script>
-<script src="pagebot/script.js"></script>
+	<script src="pagebot/script.js"></script>
 
-    <!-- Inhalt vor dem Login-Bereich -->
-
-    <section id="Login">
-        <h1>LOGIN BEREICH</h1>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    </section>
 
     <!-- Weitere Inhalte nach dem Login-Bereich -->
-
-    <script>
-    function onSignIn(googleUser) {
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-        // Senden des Tokens an den Server
-        fetch('/verify-token', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token: id_token })
-        }).then(response => response.json()).then(data => {
-            console.log('Success:', data);
-            // Weiterverarbeitung nach erfolgreicher Verifizierung
-        }).catch((error) => {
-            console.error('Error:', error);
-        });
-    }
-    </script>
+	<script>
+		function onSignIn(googleUser) {
+			var profile = googleUser.getBasicProfile();
+			console.log('ID: ' + profile.getId()); // nicht an das Backend schicken und stattdessen kannst du das mit Id machen
+			console.log('Name: ' + profile.getName());
+			console.log('Image URL: ' + profile.getImageUrl());
+			console.log('Email: ' + profile.getEmail()); // kann null sein
+			
+			// ID Token weitergeben
+			var id_token = googleUser.getAuthResponse().id_token;
+			console.log("ID Token: " + id_token);
+			
+			// Senden des Tokens an den Server
+			fetch('/verify-token', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ token: id_token })
+			}).then(response => response.json()).then(data => {
+				console.log('Success:', data);
+			}).catch((error) => {
+				console.error('Error:', error);
+			});
+		}
+	</script>
 </body>
 
 </html>

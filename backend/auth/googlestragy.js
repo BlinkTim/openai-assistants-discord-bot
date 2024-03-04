@@ -6,8 +6,8 @@ const session = require('express-session');
 
 
 passport.use(new GoogleStrategy({
-    clientID: "64931160981-q5sb22qr5aclg7pllcnb3s2k5fg76nep.apps.googleusercontent.com", //GOOGLE_CLIENT_ID,
-    clientSecret:  "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",  // GOOGLE_CLIENT_SECRET,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
@@ -25,4 +25,4 @@ app.get('/auth/google/callback',
     // Successful authentication, redirect success.
     res.redirect('/success');
   });
-  
+

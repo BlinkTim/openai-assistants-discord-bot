@@ -55,3 +55,4 @@ In this repo we integrate Discord.js with the new OpenAI Assistants API. The bot
 npm install express ejs express-session passport passport-google-oauth --save
 npm install mysql
 npm i express-session
+npm install dotenv
