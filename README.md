@@ -51,3 +51,7 @@ In this repo we integrate Discord.js with the new OpenAI Assistants API. The bot
    ```
    nodemon bot.js
    ```
+## Google signin 
+npm install express ejs express-session passport passport-google-oauth --save
+npm install mysql
+npm i express-session

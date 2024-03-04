@@ -10,6 +10,11 @@
 	<!-- Custom CSS for this template -->
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
+	<!-- Google signIN -->
+	<meta name="google-signin-client_id" content="DEINE_CLIENT_ID.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
 	<!-- Font -->
 	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=PT+Sans:700" rel="stylesheet">
@@ -348,7 +353,7 @@
 			<!-- First Vote Link -->
 	    <div class="col-md Loginblock">
 				<img class="res-img-sm" src="./img/Google.PNG">
-				<h2><a href="https://google.com/" target="_blank">CLICK TO LOGIN</a></h2>
+				<h2><a href="http://localhost:3000/auth/google/callback" target="_blank">CLICK TO LOGIN</a></h2>
 			
 				<a href="#">&nbsp;</a>
 		  </div>
@@ -443,6 +448,35 @@
 		}
 	</script>
 <script src="pagebot/script.js"></script>
+
+    <!-- Inhalt vor dem Login-Bereich -->
+
+    <section id="Login">
+        <h1>LOGIN BEREICH</h1>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </section>
+
+    <!-- Weitere Inhalte nach dem Login-Bereich -->
+
+    <script>
+    function onSignIn(googleUser) {
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+        // Senden des Tokens an den Server
+        fetch('/verify-token', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: id_token })
+        }).then(response => response.json()).then(data => {
+            console.log('Success:', data);
+            // Weiterverarbeitung nach erfolgreicher Verifizierung
+        }).catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+    </script>
 </body>
 
 </html>
